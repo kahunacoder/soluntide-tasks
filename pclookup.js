@@ -1,4 +1,5 @@
 var rp = require('request-promise');
+/* cSpell:disable */
 
 // lint spacer
 
@@ -18,7 +19,7 @@ module.exports =
 
     var tokenDiff = 0;
 
-    var token = new Buffer(context.headers['authorization'], 'base64').toString('ascii');
+    var token = Buffer.from(context.headers['authorization'], 'base64').toString('ascii');
     var splitToken = token.split('-');
     var tokenDate = new Date(parseInt(splitToken[0]) * 1000);
     var serverDate = new Date();
