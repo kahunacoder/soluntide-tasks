@@ -9,15 +9,12 @@ function auth (context) {
   if (header === undefined) {
     return 'User not authorized!';
   }
-
   var tokenDiff = 0;
-
   var token = Buffer.from(context.headers['authorization'], 'base64').toString('ascii');
   var splitToken = token.split('-');
   var tokenDate = new Date(parseInt(splitToken[0]) * 1000);
   var serverDate = new Date();
   tokenDiff = (serverDate - tokenDate) / 1000;
-
   if (isNaN(tokenDiff) || tokenDiff > 600) {
     return 'Authorization timed out!';
     // return 'tokendiff = ' + tokenDiff;
