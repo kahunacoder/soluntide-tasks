@@ -21,7 +21,7 @@ function auth (context) {
   if (isNaN(tokenDiff) || tokenDiff > 600) {
     return 'Request timed out!';
   }
-  return true;
+  return 'authorized';
 }
 
 module.exports =
@@ -31,7 +31,8 @@ module.exports =
     var geonames = context.secrets.GEONAME;
 
     var isAuth = auth(context);
-    if (isAuth !== true) {
+    console.log(isAuth);
+    if (isAuth !== 'authorized') {
       callback(null, isAuth);
     }
 
