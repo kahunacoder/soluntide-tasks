@@ -75,7 +75,7 @@ module.exports =
       callback(null, isAuth);
     }
 
-    let places = lookupPc(context, callback);
+    var places = lookupPc(context, callback);
     // console.log(places);
 
     // let tz = getTimezone(context, callback, places);
