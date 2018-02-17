@@ -19,7 +19,7 @@ function auth (context) {
   tokenDiff = (serverDate - tokenDate) / 1000;
 
   if (isNaN(tokenDiff) || tokenDiff > 600) {
-    return 'Request timed out!';
+    return 'Authorization timed out!';
   }
   return 'authorized';
 }
