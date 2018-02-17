@@ -59,7 +59,7 @@ function getTimezone (context, callback, places) {
         place.countryName = tzresponse.countryName;
         place.timezoneId = tzresponse.timezoneId;
       }
-      return places;
+      callback(null, places);
     })
     .catch(function (err) {
       callback(null, err);
@@ -75,11 +75,5 @@ module.exports =
       callback(null, isAuth);
     }
 
-    var places = lookupPc(context, callback);
-    // console.log(places);
-
-    // let tz = getTimezone(context, callback, places);
-    // console.log(tz);
-
-    callback(null, places);
+    lookupPc(context, callback);
   };
