@@ -59,6 +59,30 @@ function getTimezone (context, callback, places) {
         place.countryName = tzresponse.countryName;
         place.timezoneId = tzresponse.timezoneId;
       }
+      getDatums(context, callback, places);
+    })
+    .catch(function (err) {
+      callback(null, err);
+    });
+}
+
+function getDatums (context, callback, places) {
+  var worldTidesKey = context.secrets.WORLDTIDES;
+  var tideURL = 'http://www.worldtides.info/api?datums&lat=' + places.postalcodes[0].lat + '&lon=' + places.postalcodes[0].lng + '&key=' + worldTidesKey;
+
+  console.log(tideURL);
+  rp(tideURL, {uri: tideURL, json: true})
+    .then(function (response) {
+      for (var tideDatums of response.datums) {
+        if (tideDatums.name === 'MLW') {
+          var tidalMLW = tideDatums.height;
+        }
+        if (tideDatums.name === 'MHW') {
+          var tidalMHW = tideDatums.height;
+        }
+      }
+      places.postalcodes.tidalMLW = tidalMLW;
+      places.postalcodes.tidalMHW = tidalMHW;
       callback(null, places);
     })
     .catch(function (err) {
