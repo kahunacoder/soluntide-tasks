@@ -32,7 +32,7 @@ function lookupPc (context, callback) {
 
   var postalCodeLookup = 'http://api.geonames.org/postalCodeLookupJSON?postalcode=' + postalcode + '&country=' + country + '&username=' + geonames;
 
-  console.log(postalCodeLookup);
+  // console.log(postalCodeLookup);
   var getPC = {
     uri: postalCodeLookup,
     json: true
@@ -52,7 +52,7 @@ function getTimezone (context, callback, places) {
   var tzURL = 'http://api.geonames.org/timezoneJSON?username=' + geonames;
 
   tzURL = tzURL + '&lat=' + places.postalcodes[0].lat + '&lng=' + places.postalcodes[0].lng;
-  console.log(tzURL);
+  // console.log(tzURL);
   rp(tzURL, {uri: tzURL, json: true})
     .then(function (tzresponse) {
       for (var place of places.postalcodes) {
@@ -70,7 +70,7 @@ function getDatums (context, callback, places) {
   var worldTidesKey = context.secrets.WORLDTIDES;
   var tideURL = 'http://www.worldtides.info/api?datums&lat=' + places.postalcodes[0].lat + '&lon=' + places.postalcodes[0].lng + '&key=' + worldTidesKey;
 
-  console.log(tideURL);
+  // console.log(tideURL);
   rp(tideURL, {uri: tideURL, json: true})
     .then(function (response) {
       for (var tideDatums of response.datums) {
