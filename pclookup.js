@@ -41,7 +41,7 @@ module.exports =
       .then(function (response) {
         var places = response;
         tzURL = tzURL + '&lat=' + places.postalcodes[0].lat + '&lng=' + places.postalcodes[0].lng;
-        console.log(tzURL)
+        console.log(tzURL);
         rp(tzURL, {uri: tzURL, json: true})
           .then(function (tzresponse) {
             for (var place of places.postalcodes) {
