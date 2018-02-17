@@ -20,7 +20,7 @@ function auth (context) {
 
   if (isNaN(tokenDiff) || tokenDiff > 600) {
     // return 'Authorization timed out!';
-    return tokenDiff;
+    return 'tokendiff = ' + tokenDiff;
   }
   return 'authorized';
 }
