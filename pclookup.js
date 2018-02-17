@@ -3,31 +3,36 @@ var rp = require('request-promise');
 
 // lint spacer
 
+function auth (context) {
+  var header = '';
+  header = context.headers['authorization'];
+  if (header === undefined) {
+    return 'User not authorized!';
+  }
+
+  var tokenDiff = 0;
+
+  var token = Buffer.from(context.headers['authorization'], 'base64').toString('ascii');
+  var splitToken = token.split('-');
+  var tokenDate = new Date(parseInt(splitToken[0]) * 1000);
+  var serverDate = new Date();
+  tokenDiff = (serverDate - tokenDate) / 1000;
+
+  if (isNaN(tokenDiff) || tokenDiff > 600) {
+    return 'Request timed out!';
+  }
+  return true;
+}
+
 module.exports =
   function (context, callback) {
     var postalcode = context.data.postalcode;
     var country = context.data.country;
     var geonames = context.secrets.GEONAME;
 
-    var auth = '';
-    auth = context.headers['authorization'];
-
-    if (auth === undefined) {
-      callback(null, 'User not authorized!');
-      return;
-    }
-
-    var tokenDiff = 0;
-
-    var token = Buffer.from(context.headers['authorization'], 'base64').toString('ascii');
-    var splitToken = token.split('-');
-    var tokenDate = new Date(parseInt(splitToken[0]) * 1000);
-    var serverDate = new Date();
-    tokenDiff = (serverDate - tokenDate) / 1000;
-
-    if (isNaN(tokenDiff) || tokenDiff > 600) {
-      callback(null, 'Request timed out!');
-      return;
+    var isAuth = auth(context);
+    if (isAuth !== true) {
+      callback(null, isAuth);
     }
 
     var postalCodeLookup = 'http://api.geonames.org/postalCodeLookupJSON?postalcode=' + postalcode + '&country=' + country + '&username=' + geonames;
