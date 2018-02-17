@@ -81,8 +81,8 @@ function getDatums (context, callback, places) {
           var tidalMHW = tideDatums.height;
         }
       }
-      places.postalcodes.tidalMLW = tidalMLW;
-      places.postalcodes.tidalMHW = tidalMHW;
+      places.postalcodes[0].tidalMLW = tidalMLW;
+      places.postalcodes[0].tidalMHW = tidalMHW;
       callback(null, places);
     })
     .catch(function (err) {
