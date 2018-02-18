@@ -83,7 +83,8 @@ function getDatums (context, callback, places) {
       callback(null, places);
     })
     .catch(function (err) {
-      callback(null, err);
+      console.log(err);
+      callback(null, places);
     });
 }
 
