@@ -84,6 +84,8 @@ function getDatums (context, callback, places) {
     })
     .catch(function (err) {
       console.log(err);
+      places.postalcodes[0].tidalMLW = '';
+      places.postalcodes[0].tidalMHW = '';
       callback(null, places);
     });
 }
