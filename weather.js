@@ -1,5 +1,4 @@
-// 'use strict'
-
+/* cSpell:disable */
 var rp = require('request-promise');
 
 function auth (context) {
