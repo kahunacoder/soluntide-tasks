@@ -29,8 +29,8 @@ function getTides (context, callback) {
   var lat = context.data.lat;
   var lon = context.data.lon;
   var worldTidesKey = context.secrets.WORLDTIDES;
-  // var length = 604800; // 7 days
-  var length = 86400; // 1 day
+  var length = 604800; // 7 days
+  // var length = 86400; // 1 day
 
   var tideURL = 'http://www.worldtides.info/api?stationDistance=100&extremes&start=' + epoch + '&length=' + length + '&lat=' + lat + '&lon=' + lon + '&key=' + worldTidesKey;
   console.log(tideURL);
